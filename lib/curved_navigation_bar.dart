@@ -4,7 +4,7 @@ import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
 typedef _LetIndexPage = bool Function(int value);
- 
+
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int index;
@@ -42,7 +42,8 @@ class CurvedNavigationBar extends StatefulWidget {
   CurvedNavigationBarState createState() => CurvedNavigationBarState();
 }
 
-class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTickerProviderStateMixin {
+class CurvedNavigationBarState extends State<CurvedNavigationBar>
+    with SingleTickerProviderStateMixin {
   late double _startingPos;
   int _endingIndex = 0;
   late double _pos;
@@ -67,7 +68,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
         if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
           _icon = widget.items[_endingIndex];
         }
-        _buttonHide = (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
+        _buttonHide =
+            (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
       });
     });
   }
@@ -108,8 +110,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
         children: <Widget>[
           Positioned(
             bottom: -40 - (75.0 - widget.height),
-            left: Directionality.of(context) == TextDirection.rtl ? null : _pos * size.width,
-            right: Directionality.of(context) == TextDirection.rtl ? _pos * size.width : null,
+            left: Directionality.of(context) == TextDirection.rtl
+                ? null
+                : _pos * size.width,
+            right: Directionality.of(context) == TextDirection.rtl
+                ? _pos * size.width
+                : null,
             width: size.width / _length,
             child: Center(
               child: Transform.translate(
@@ -140,15 +146,30 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
             left: 0,
             right: 0,
             bottom: 0 - (75.0 - widget.height),
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(widget.radius),
-                topRight: Radius.circular(widget.radius),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.15),
+                    blurRadius: 100,
+                    spreadRadius: 10,
+                    offset: const Offset(0, 0),
+                    // blurStyle: BlurStyle.outer,
+                  ),
+                ],
               ),
-              child: CustomPaint(
-                painter: NavCustomPainter(_pos, _length, widget.color, Directionality.of(context)),
-                child: Container(
-                  height: 75.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(widget.radius),
+                  topRight: Radius.circular(widget.radius),
+                ),
+                child: CustomPaint(
+                  painter: NavCustomPainter(
+                      _pos, _length, widget.color, Directionality.of(context)),
+                  child: Container(
+                    height: 75.0,
+                  ),
                 ),
               ),
             ),
