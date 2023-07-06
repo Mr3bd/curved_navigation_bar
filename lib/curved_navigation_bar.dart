@@ -17,6 +17,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Duration animationDuration;
   final double height;
   final double radius;
+  final List<Color>? gradient;
 
   CurvedNavigationBar({
     Key? key,
@@ -25,6 +26,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.color = Colors.white,
     this.buttonBackgroundColor,
     this.backgroundColor = Colors.blueAccent,
+    this.gradient,
     this.onTap,
     _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
@@ -92,10 +94,14 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     super.dispose();
   }
 
-  final List<Color> normalGradient = <Color>[
-    // normal gradient meaning the default centro button color which is green
+  final List<Color> centroGradient = <Color>[
     const Color.fromRGBO(19, 113, 77, 1.0),
     const Color.fromRGBO(131, 199, 95, 1.0)
+  ];
+
+  final List<Color> iktifaaGradient = <Color>[
+    const Color.fromRGBO(153, 217, 140, 1.0),
+    const Color.fromRGBO(22, 138, 173, 1.0)
   ];
 
   @override
@@ -127,7 +133,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                   decoration: BoxDecoration(
                     color: widget.buttonBackgroundColor ?? widget.color,
                     gradient: LinearGradient(
-                      colors: normalGradient,
+                      colors: widget.gradient ?? centroGradient,
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
